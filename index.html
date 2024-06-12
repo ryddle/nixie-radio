@@ -152,7 +152,7 @@
         border-radius: 50%;
         background-color: #1d1100;
         box-shadow: 1px 6px 10px 2px #0e0800;">
-            <div id="gauge" style="position: absolute;
+            <div id="gauge_elm" style="position: absolute;
             left: 10px;
             top: 10px;
             width: 260px;
@@ -161,8 +161,23 @@
             background-color: #af9c7e;
             box-shadow: 1px 6px 10px 2px #0e0800;">
                 <canvas width="260" height="240" id="canvas"></canvas>
+                <span style="position: absolute;left: 100px;top: 215px;font-family: serif;font-size: 8px;color: black;">ryddle .inc 1880</span>
             </div>
         </div>
+
+        <div id="gauge_glass" style="position: absolute;
+        left: 400px;
+        top: 230px;
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+        z-index: 10;
+        background: linear-gradient(45deg, rgba(224, 217, 146, 0.5186449579831933) 0%, rgba(224, 217, 146, 0) 35%, rgba(224, 217, 146, 0.4430147058823529) 70%, rgba(224, 217, 146, 0) 100%);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(0.6px);
+        -webkit-backdrop-filter: blur(2.4px);
+        border: 6px solid rgb(255 255 255 / 10%);
+        filter: sepia(60%);"></div>
     </div>
 
     <div id="sidebaropener2" onclick="openPlaylist()">
@@ -406,7 +421,7 @@
 
         audiotimer = setInterval(function () {
             gauge.set(getEnergy());
-        }, 100);
+        }, 20);
     });
 
 
