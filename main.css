@@ -318,7 +318,7 @@ a:hover,
     margin: auto;
     margin-top: 94px;
     left: 75px;
-    box-shadow: inset 0px -20px 50px 2px rgb(var(--red) var(--green) var(--blue) / 20%);
+    box-shadow: inset 0px -20px 50px 2px rgb(var(--red) var(--green) var(--blue) / 7%);
 }
 
 .trapezoid_right {
@@ -332,7 +332,7 @@ a:hover,
     margin: auto;
     margin-top: 94px;
     left: 565px;
-    box-shadow: inset 0px -20px 50px 2px rgb(var(--red) var(--green) var(--blue) / 20%);
+    box-shadow: inset 0px -20px 50px 2px rgb(var(--red) var(--green) var(--blue) / 14%);
 }
 
 /*************************************************************************************************************/
