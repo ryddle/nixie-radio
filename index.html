@@ -90,7 +90,7 @@
                 <p>7</p>
                 <p>8</p>
                 <p>9</p>
-                <div class="bottom"  style="left: 355px;"></div>
+                <div class="bottom" style="left: 355px;"></div>
             </div>
         </section>
         <p class="separator">:</p>
@@ -195,8 +195,8 @@
     <div id="playlistsidebar" class="playlistsidebar">
     </div>
 
-    <input type="file" id="file" accept="audio/*" style="display: none;" multiple>
-    <audio id="audio"></audio>
+    <input type="file" id="file" accept="audio/**" style="display: none;" multiple>
+    <audio id="audio" crossorigin="anonymous"></audio>
 
     <script src="js/gauge.min.js"></script>
     <script src="nixie.js"></script>
@@ -204,6 +204,51 @@
 
 </html>
 <script>
+    function m3uToJson(m3u) {
+        var lines = m3u.split('\n');
+        var json = [];
+        var track = {};
+
+        for (var i = 0; i < lines.length; i++) {
+            if (lines[i].startsWith("#EXTM3U")) continue;
+            if (lines[i].startsWith('#EXTINF:')) {
+                let name = "";
+                let info = lines[i].substring(8);
+                info = info.split(',');
+                if (info.length > 1) {
+                    name = info[1];
+                } else {
+                    name = info[0];
+                }
+                track = {
+                    "name": name,
+                    "streaming_url": lines[i + 1],
+                    "type": "audio/mpeg"
+                };
+                if (Object.keys(track).length > 0) {
+                    json.push(track);
+                }
+            } else {
+                if(i>0 && (lines[i-1] == "#EXTM3U" || lines[i-1].startsWith('#EXTINF:') || lines[i].length == 0)) continue;
+                track = {
+                    "name": lines[i],
+                    "streaming_url": lines[i],
+                    "type": "audio/mpeg"
+                };
+                if (Object.keys(track).length > 0) {
+                    json.push(track);
+                }
+            }
+        }
+
+        /* if (Object.keys(track).length > 0) {
+            json.push(track);
+        } */
+
+        return json;
+    }
+
+
     function openSidebar() {
         document.getElementById("sidebaropener").classList.remove("fadeIn");
         document.getElementById("sidebaropener").classList.add("fadeOut");
@@ -248,6 +293,7 @@
 
 
     ////////////////////////////////////////////////////////////////////////////////////
+    var sources = [];
     var tracks = [];
     var currentTrack = 0;
     var baseTimer = null;
@@ -446,6 +492,7 @@
             document.getElementById("timeMode").style.visibility = "hidden";
 
             tracks = [];
+            sources = [];
             currentTrack = 0;
 
             timeMode = 0;
@@ -460,13 +507,33 @@
         }
     });
 
-    document.getElementById("file").addEventListener("input", function () {
+    async function readFileAsText(file) {
+        let result = await new Promise((resolve) => {
+            let fileReader = new FileReader();
+            fileReader.onload = (e) => resolve(fileReader.result);
+            fileReader.readAsText(file);
+        });
+        return result;
+    }
+
+    document.getElementById("file").addEventListener("input", async function () {
         if (this.files && this.files[0]) {
             document.getElementById("openMusic").innerHTML = "<i class='fa-solid fa-power-off'></i>";
             document.getElementById("openMusic").classList.add("active");
-            
+
             for (let i = 0; i < this.files.length; i++) {
-                tracks.push(URL.createObjectURL(this.files[i]));
+                let file = this.files[i];
+                if (file.type == "audio/x-mpegurl") {
+                    let m3u = await readFileAsText(file);
+                    var playlist = m3uToJson(m3u);
+                    for (let j = 0; j < playlist.length; j++) {
+                        tracks.push(playlist[j].streaming_url);
+                        sources.push({ src: playlist[j].streaming_url, name: playlist[j].name, type: playlist[j].type });
+                    }
+                } else {
+                    tracks.push(URL.createObjectURL(file));
+                    sources.push({ src: URL.createObjectURL(file), name: file.name, type: file.type }); // or audio/mp3, or audio/ogg
+                }
             }
 
             document.getElementById("audio").src = tracks[currentTrack];
@@ -478,7 +545,7 @@
 
             togglePlay();
 
-            createPlaylist(this.files);
+            createPlaylist(sources);
 
             document.getElementById("control-buttons").querySelectorAll("button").forEach(function (button) {
                 button.classList.add("active");
