@@ -278,6 +278,20 @@ a:hover,
     border-top-left-radius: 50px;
     border-top-right-radius: 50px;
     background: linear-gradient(90deg, rgb(var(--ligth-color-v) / 25%) 0%, rgb(var(--ligth-color-v-d) / 25%) 10%, rgba(18, 18, 18, 1) 25%, rgba(18, 18, 18, 1) 75%, rgb(var(--ligth-color-v-d) / 25%) 90%, rgb(var(--ligth-color-v) / 25%) 100%);
+    /* border-image:linear-gradient(to left, rgba(0, 0, 0, 1), rgb(var(--red), var(--green), var(--blue), 0.5), rgba(0, 0, 0, 1)) 0.5; */
+}
+
+.clock div.bottom {
+    position: absolute;
+    left: 63px;
+    top: 130px;
+    width: 60px;
+    height: 10px;
+    z-index: 100;
+    background-color: antiquewhite;
+    border-radius: 0px;
+    border: 0px;
+    background: linear-gradient(90deg, black 10%, rgb(var(--red), var(--green), var(--blue), 0.4) 45%, rgb(var(--red), var(--green), var(--blue), 0.4) 55%, black 90%);
 }
 
 
@@ -293,6 +307,9 @@ a:hover,
     border-radius: 50px;
 }
 
+.hours {
+    margin-left: -8px;
+}
 
 .trapezoid {
     position: absolute;
@@ -356,6 +373,13 @@ button.control-btn-style {
     border-radius: 50%;
     background: transparent;
     color: rgb(var(--ligth-color-v-d));
+    border-top-color: #4b330c70;
+    border-left-color: #4b330c70;
+}
+
+button.control-btn-style:active {
+    border-bottom-color: #4b330c70;
+    border-right-color: #4b330c70;
 }
 
 button.active {
