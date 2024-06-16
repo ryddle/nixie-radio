@@ -344,7 +344,7 @@
             document.getElementById("audio").play();
             document.getElementById("play").innerHTML = "<i class='fa-solid fa-pause'></i>";
 
-            setDigits(hours, (currentTrack < 10) ? "0" + (currentTrack + 1) : currentTrack + 1);
+            setDigits(hours, (currentTrack < 10) ? "0" + (currentTrack + 1) : (currentTrack + 1) + "");
         } else {
             document.getElementById("audio").pause();
             document.getElementById("play").innerHTML = "<i class='fa-solid fa-play'></i>";
@@ -376,7 +376,7 @@
         var time = (timeMode == 1) ? currentTime : duration - currentTime;
         var parsedTime = secondsToHHMMSSObj(time);
 
-        setDigits(hours, (currentTrack < 10) ? "0" + (currentTrack + 1) : currentTrack + 1);
+        setDigits(hours, (currentTrack < 10) ? "0" + (currentTrack + 1) : (currentTrack + 1) + "");
         setDigits(mins, parsedTime.m);
         setDigits(secs, parsedTime.s);
     }
