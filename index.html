@@ -124,7 +124,7 @@
             </div>
         </section>
         <div class="clockbase"></div>
-        <button id="timeMode" class="control-btn control-btn-style active" style="left: 50px; visibility: hidden;" state="0"><i
+        <button id="timeMode" class="control-btn control-btn-style active" style="left: 43px; visibility: hidden;" state="0"><i
                 class="fa-solid fa-clock-rotate-left fa-flip-horizontal"></i></button><!-- <i class="fa-regular fa-clock"></i>  <i class="fa-solid fa-clock-rotate-left fa-flip-horizontal"></i>  <i class="fa-solid fa-clock-rotate-left"></i>  -->
         <div id="control-buttons" class="control-buttons">
             <button id="prev" class="control-btn-style"><i class="fa-solid fa-backward-step"></i></button>
@@ -152,32 +152,41 @@
             background-size: 10px 10px;"></div>
         </div>
 
-        <div id="gauge" style="position: absolute;
+        <div id="gauge" style="
+        position: absolute;
         left: 390px;
-        top: 215px;
+        top: 250px;
         width: 280px;
-        height: 280px;
+        height: 220px;
         border-radius: 50%;
         background-color: #1d1100;
-        box-shadow: 1px 6px 10px 2px #0e0800;">
-            <div id="gauge_elm" style="position: absolute;
+        box-shadow: 1px 6px 10px 2px #0e0800;
+        ">
+            <div id="gauge_elm" style="
+            position: absolute;
             left: 10px;
             top: 10px;
             width: 260px;
-            height: 260px;
+            height: 200px;
             border-radius: 50%;
             background-color: #af9c7e;
-            box-shadow: 1px 6px 10px 2px #0e0800;">
-                <canvas width="260" height="240" id="canvas"></canvas>
-                <span style="position: absolute;left: 100px;top: 215px;font-family: serif;font-size: 8px;color: black;">ryddle .co 1940</span>
+            box-shadow: 1px 6px 10px 2px #0e0800;
+            ">
+                <canvas width="260" height="240" id="canvas" style="
+                    position: absolute;
+                    left: 0px;
+                    top: -48px;
+                "></canvas>
+                <span style="position: absolute;left: 107px;top: 106px;font-family: serif;font-size: 8px;color: black;">ryddle .co 1940</span>
             </div>
         </div>
 
-        <div id="gauge_glass" style="position: absolute;
+        <div id="gauge_glass" style="
+        position: absolute;
         left: 400px;
-        top: 225px;
+        top: 260px;
         width: 250px;
-        height: 250px;
+        height: 190px;
         border-radius: 50%;
         z-index: 10;
         background: linear-gradient(45deg, rgba(224, 217, 146, 0.5186449579831933) 0%, rgba(224, 217, 146, 0) 35%, rgba(224, 217, 214, 0.4) 55%, rgba(224, 217, 146, 0.4430147058823529) 70%, rgba(224, 217, 146, 0) 100%);
@@ -185,7 +194,84 @@
         backdrop-filter: blur(0.5px);
         -webkit-backdrop-filter: blur(0.5px);
         border: 6px solid rgb(255 255 255 / 10%);
-        filter: sepia(60%);"></div>
+        filter: sepia(60%);
+        "></div>
+
+        <div id="slider" style="display: none;
+        position: absolute;
+        left: 40px;
+        top: 545px;
+        width: 630px;
+        height: 30px;
+        border-radius: 50px;
+        background-color: #1d1100;
+        box-shadow: inset 1px 6px 10px 2px #0e0800;">
+            <div id="sliderbar" style="    position: absolute;
+            left: 5px;
+            top: 13px;
+            width: 274px;
+            height: 4px;
+            border-radius: 50px;
+            background-color: rgb(var(--red), var(--green), var(--blue), 0.5);
+            box-shadow: 0px 0px 15px 1px var(--ligth-color);"></div>
+
+            <div id="sliderknob" style="
+            position: absolute;
+            left: 0px;
+            top: -5px;
+            width: 20px;
+            height: 40px;
+            ">
+                <div id="sliderknob_top" style="
+                position: absolute;
+                left: 1px;
+                top: -4px;
+                width: 18px;
+                height: 11px;
+                background-color: rgb(84 52 25);
+                transform: perspective(35px) rotateX(115deg);
+                "></div>
+
+                <div id="sliderknob_left" style="
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                width: 2px;
+                height: 39px;
+                background-color: rgb(66 37 12);
+                transform: skewY(54deg);
+                "></div>
+
+                <div id="sliderknob_right" style="
+                position: absolute;
+                left: 18px;
+                top: 0px;
+                width: 2px;
+                height: 39px;
+                background-color: rgb(84 52 25);
+                transform: skewY(144deg);
+                "></div>
+
+                <div id="sliderknob_front" style="
+                position: absolute;
+                left: 2px;
+                top: 3px;
+                width: 16px;
+                height: 37px;
+                background-color: var(--wood-dark);
+                "></div>
+
+                <div id="sliderknob_scratch" style="
+                position: absolute;
+                left: 8px;
+                top: 6px;
+                width: 4px;
+                height: 30px;
+                background-color: var(--ligth-color);
+                box-shadow: inset -1px -1px 2px 0px rgb(65 52 38);
+                "></div>
+            </div>
+        </div>
     </div>
 
     <div id="sidebaropener2" onclick="openPlaylist()">
@@ -196,7 +282,7 @@
     </div>
 
     <input type="file" id="file" accept="audio/**" style="display: none;" multiple>
-    <audio id="audio" crossorigin="anonymous"></audio>
+    <audio id="audio" crossorigin="anonymous" preload="auto" buffered></audio>
 
     <script src="js/gauge.min.js"></script>
     <script src="nixie.js"></script>
@@ -229,7 +315,7 @@
                     json.push(track);
                 }
             } else {
-                if(i>0 && (lines[i-1] == "#EXTM3U" || lines[i-1].startsWith('#EXTINF:') || lines[i].length == 0)) continue;
+                if (i > 0 && (lines[i - 1] == "#EXTM3U" || lines[i - 1].startsWith('#EXTINF:') || lines[i].length == 0)) continue;
                 track = {
                     "name": lines[i],
                     "streaming_url": lines[i],
@@ -312,6 +398,10 @@
         li.style.color = "rgb(var(--accessible-color), var(--accessible-color), var(--accessible-color))";
         li.children[0].style.color = "rgb(var(--accessible-color), var(--accessible-color), var(--accessible-color))";
 
+        document.getElementById("sliderknob").style.left = "0px";
+        /* document.getElementById("sliderbar").style.background = "linear-gradient(90deg, rgb(var(--red) var(--green) var(--blue)) 0%, rgb(0 0 0) 0%)"; */
+        document.getElementById("sliderbar").style.width = "0px";
+
         document.getElementById("audio").src = tracks[currentTrack];
         document.getElementById("audio").load();
 
@@ -332,6 +422,10 @@
         li.style.backgroundColor = "var(--ligth-color)";
         li.style.color = "rgb(var(--accessible-color), var(--accessible-color), var(--accessible-color))";
         li.children[0].style.color = "rgb(var(--accessible-color), var(--accessible-color), var(--accessible-color))";
+
+        document.getElementById("sliderknob").style.left = "0px";
+        /* document.getElementById("sliderbar").style.background = "linear-gradient(90deg, rgb(var(--red) var(--green) var(--blue)) 0%, rgb(0 0 0) 0%)"; */
+        document.getElementById("sliderbar").style.width = "0px";
 
         document.getElementById("audio").src = tracks[currentTrack];
         document.getElementById("audio").load();
@@ -476,6 +570,14 @@
         }, 20);
     });
 
+    document.getElementById("audio").addEventListener('timeupdate', function () {
+        let nl = map(this.currentTime, 0, this.duration, 0, 610);
+        document.getElementById("sliderknob").style.left = nl + "px";
+        let npercent = map(this.currentTime, 0, this.duration, 0, 100);
+        /* document.getElementById("sliderbar").style.background = "linear-gradient(90deg, rgb(var(--red) var(--green) var(--blue)) " + npercent + "%, rgb(0 0 0) " + npercent + "%)"; */
+        document.getElementById("sliderbar").style.width = nl + "px";
+    });
+
 
 
     document.getElementById("openMusic").addEventListener("click", function () {
@@ -552,21 +654,63 @@
             });
             document.getElementById("control-buttons").style.display = "block";
             document.getElementById("timeMode").style.visibility = "visible";
+
+            document.getElementById("slider").style.display = "block";
         } else {
             document.getElementById("control-buttons").querySelectorAll("button").forEach(function (button) {
                 button.classList.remove("active");
             });
             document.getElementById("control-buttons").style.display = "none";
+            document.getElementById("slider").style.display = "none";
         }
+    });
+
+    document.getElementById("slider").addEventListener("mouseup", function (event) {
+        if (isSliding) {
+            return;
+        }
+        let x = event.offsetX;//event.clientX - this.offsetLeft;
+        let nl = Math.max(0, Math.min(620, x));
+        document.getElementById("sliderknob").style.left = nl + "px";
+        let npercent = map(nl, 0, 620, 0, 100);
+        /* document.getElementById("sliderbar").style.background = "linear-gradient(90deg, rgb(var(--red) var(--green) var(--blue)) " + npercent + "%, rgb(0 0 0) " + npercent + "%)"; */
+        document.getElementById("sliderbar").style.width = nl + "px";
+        let time = map(x, 0, this.offsetWidth, 0, document.getElementById("audio").duration);
+        document.getElementById("audio").currentTime = time;
+    });
+
+    var left_offset = 0;
+    var isSliding = false;
+    document.getElementById("sliderknob").addEventListener("mousedown", function (event) {
+        left_offset = event.clientX - this.offsetLeft;
+        isSliding = true;
+    });
+
+    document.addEventListener("mousemove", function (event) {
+        if (event.buttons == 1 && isSliding) {
+            let x = event.clientX - left_offset;
+            let nl = Math.max(0, Math.min(620, x));
+            document.getElementById("sliderknob").style.left = nl + "px";
+            let npercent = map(nl, 0, 620, 0, 100);
+            /* document.getElementById("sliderbar").style.background = "linear-gradient(90deg, rgb(var(--red) var(--green) var(--blue)) " + npercent + "%, rgb(0 0 0) " + npercent + "%)"; */
+            document.getElementById("sliderbar").style.width = nl + "px";
+            let time = map(x, 0, 620, 0, document.getElementById("audio").duration);
+            document.getElementById("audio").currentTime = time;
+        }
+    });
+
+    document.addEventListener("mouseup", function (event) {
+        isSliding = false;
     });
 
     baseTimer = setInterval(updateDisplay, 1000);
 
     /////////////////////////////////////////////////////////////////
     var opts = {
-        angle: -0.25,
+        angle: 0.18,
+        /*angle: -0.25,*/
         lineWidth: 0.02,
-        radiusScale: 0.9,
+        radiusScale: 0.6,
         pointer: {
             length: 0.6,
             strokeWidth: 0.02,

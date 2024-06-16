@@ -355,22 +355,22 @@ a:hover,
 /*************************************************************************************************************/
 .control-buttons {
     position: absolute;
-    left: 300px;
-    bottom: 18px;
+    left: 256px;
+    bottom: 14px;
     background: transparent;
     font-style: normal;
     display: none;
 }
 button.control-btn {
     position: absolute;
-    right: 40px;
+    right: 33px;
     bottom: 25px;
 }
 
 button.control-btn-style {
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
+    height: 30px;
+    width: 60px;
+    border-radius: 5%;
     background: transparent;
     color: rgb(var(--ligth-color-v-d));
     border-top-color: #4b330c70;

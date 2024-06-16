@@ -9,3 +9,11 @@
 ## DEMO
 
 https://ryddle.github.io/nixie-radio
+
+### Version 1.1.0
+
+![v1.1.0](resources/v1_1_0.jpg)
+
+### Version 2.0.0
+
+![v2.0.0](resources/v2_0_0.jpg)
