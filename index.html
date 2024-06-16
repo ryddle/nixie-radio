@@ -604,6 +604,8 @@
             document.getElementById("audio").src = "";
             document.getElementById("file").value = null;
 
+            document.getElementById("slider").style.display = "none";
+
         } else {
             document.getElementById("file").click();
         }
@@ -629,8 +631,11 @@
                     let m3u = await readFileAsText(file);
                     var playlist = m3uToJson(m3u);
                     for (let j = 0; j < playlist.length; j++) {
-                        tracks.push(playlist[j].streaming_url);
-                        sources.push({ src: playlist[j].streaming_url, name: playlist[j].name, type: playlist[j].type });
+                        let blob = await fetch(playlist[j].streaming_url).then(res => res.blob());
+                        tracks.push(URL.createObjectURL(blob));
+                        sources.push({ src: URL.createObjectURL(blob), name: playlist[j].name, type: playlist[j].type });
+                        //tracks.push(playlist[j].streaming_url);
+                        //sources.push({ src: playlist[j].streaming_url, name: playlist[j].name, type: playlist[j].type });
                     }
                 } else {
                     tracks.push(URL.createObjectURL(file));
