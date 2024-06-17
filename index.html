@@ -177,7 +177,7 @@
                     left: 0px;
                     top: -48px;
                 "></canvas>
-                <span style="position: absolute;left: 107px;top: 106px;font-family: serif;font-size: 8px;color: black;">ryddle .co 1940</span>
+                <span style="position: absolute;left: 107px;top: 106px;font-family: serif;font-size: 8px;color: black; user-select: none;">ryddle .co 1940</span>
             </div>
         </div>
 
@@ -211,8 +211,16 @@
             top: 13px;
             width: 274px;
             height: 4px;
-            border-radius: 50px;
-            background-color: rgb(var(--red), var(--green), var(--blue), 0.5);
+            border-radius: 5px;
+            /* background-color: rgb(var(--red), var(--green), var(--blue), 0.5); */
+            /*
+            background: radial-gradient(circle, var(--ligth-color) 50%, transparent 22%) 0% 0% / 1px 1px, rgb(85, 64, 36);
+            background-size: 6px;
+            */
+            
+            background: radial-gradient(circle, var(--ligth-color) 50%, transparent 150%) 0% 0% / 1px 1px, rgb(85, 64, 36);
+            background-size: 14px;
+           
             box-shadow: 0px 0px 15px 1px var(--ligth-color);"></div>
 
             <div id="sliderknob" style="
@@ -384,6 +392,9 @@
     var currentTrack = 0;
     var baseTimer = null;
     function nextTrack() {
+        if(isSliding) {
+            return;
+        }
         currentTrack = (currentTrack + 1) % tracks.length;
 
         var ol = document.getElementById("playlist");
@@ -675,9 +686,9 @@
             return;
         }
         let x = event.offsetX;//event.clientX - this.offsetLeft;
-        let nl = Math.max(0, Math.min(620, x));
+        let nl = Math.max(0, Math.min(610, x));
         document.getElementById("sliderknob").style.left = nl + "px";
-        let npercent = map(nl, 0, 620, 0, 100);
+        let npercent = map(nl, 0, 610, 0, 100);
         /* document.getElementById("sliderbar").style.background = "linear-gradient(90deg, rgb(var(--red) var(--green) var(--blue)) " + npercent + "%, rgb(0 0 0) " + npercent + "%)"; */
         document.getElementById("sliderbar").style.width = nl + "px";
         let time = map(x, 0, this.offsetWidth, 0, document.getElementById("audio").duration);
@@ -694,12 +705,12 @@
     document.addEventListener("mousemove", function (event) {
         if (event.buttons == 1 && isSliding) {
             let x = event.clientX - left_offset;
-            let nl = Math.max(0, Math.min(620, x));
+            let nl = Math.max(0, Math.min(610, x));
             document.getElementById("sliderknob").style.left = nl + "px";
-            let npercent = map(nl, 0, 620, 0, 100);
+            let npercent = map(nl, 0, 610, 0, 100);
             /* document.getElementById("sliderbar").style.background = "linear-gradient(90deg, rgb(var(--red) var(--green) var(--blue)) " + npercent + "%, rgb(0 0 0) " + npercent + "%)"; */
             document.getElementById("sliderbar").style.width = nl + "px";
-            let time = map(x, 0, 620, 0, document.getElementById("audio").duration);
+            let time = map(x, 0, 610, 0, document.getElementById("audio").duration-2);
             document.getElementById("audio").currentTime = time;
         }
     });
