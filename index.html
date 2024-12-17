@@ -17,7 +17,7 @@
         <label for="loopColor" style="font-size: 14px; font-family: monospace; color: white;">Loop Color</label>
         <input type="checkbox" name="loopColor" id="loopColor" onclick="loopColor()" style="font-size: 14px; font-family: monospace;" />
         <br><br>
-        <input type="color" id="selcolor" value="#ffe548" onchange="changeColor(this.value)">
+        <input type="color" id="selcolor" value="#ffe548" oninput="changeColor(this.value)">
 
         <a href="https://github.com/ryddle/nixie-radio" id="github" target="_blank" style="float: right;margin-top: -25px;">
             <div style="height: 32px;width: 32px;background: black;border-radius: 50%;">
