@@ -35,6 +35,7 @@
     ) * -1000
   );
 
+  --glow: 0px;
   --intensity: 0px;
 
 }
