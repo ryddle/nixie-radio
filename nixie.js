@@ -89,3 +89,12 @@ function hsb2rgb(_h, _s, _b) {
 }
 
 //loopColor();
+
+var r = document.querySelector(':root');
+function getCssVar(name){
+    return getComputedStyle(r).getPropertyValue(name);
+}
+
+function setCssVar(name, value){
+    r.style.setProperty(name, value);
+}

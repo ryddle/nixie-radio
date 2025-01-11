@@ -35,6 +35,8 @@
     ) * -1000
   );
 
+  --intensity: 0px;
+
 }
 
 * {
@@ -92,6 +94,15 @@ a:hover {
     background-color: #191919;
 }
 
+.lyricssidebar {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    width: 500px;
+    height: 100vh;
+    background-color: #191919;
+}
+
 #sidebaropener {
     width: 40px;
     padding: 40px 10px;
@@ -122,7 +133,7 @@ a:hover {
     width: 40px;
     height: 100vh;
     background-color: #191919;
-    cursor: pointer;
+    /* cursor: pointer; */
     z-index: 1;
     opacity: 1;
     padding-top: 5px;
@@ -134,11 +145,24 @@ a:hover {
     visibility: hidden;
 }
 
+#sidebaropener2 > button{
+    color: var(--ligth-color);
+    visibility: hidden;
+    background: transparent;
+    cursor: pointer;
+    width: 20px;
+    margin-top: 10px;
+}
+
 #sidebaropener2:hover {
     background: linear-gradient(90deg, rgb(44, 44, 44) 0%, rgb(0, 0, 0) 10%, rgb(0, 0, 0) 90%, rgb(44, 44, 44) 100%);
 }
 
 #sidebaropener2:hover > i {
+    visibility: visible;
+}
+
+#sidebaropener2:hover > button{
     visibility: visible;
 }
 
@@ -151,6 +175,14 @@ a:hover {
 }
 
 #playlistsidebar {
+    padding: 40px 25px 40px 40px;
+    z-index: 0;
+    opacity: 0;
+    visibility: hidden;
+    background: linear-gradient(90deg,  rgb(44, 44, 44) 0%, rgb(0, 0, 0) 5%);
+}
+
+#lyricssidebar {
     padding: 40px 25px 40px 40px;
     z-index: 0;
     opacity: 0;

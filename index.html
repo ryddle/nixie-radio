@@ -7,6 +7,8 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="main.css">
+    <script src="config.js"></script>
+    <script src="js/genius.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -17,7 +19,7 @@
         <label for="loopColor" style="font-size: 14px; font-family: monospace; color: white;">Loop Color</label>
         <input type="checkbox" name="loopColor" id="loopColor" onclick="loopColor()" style="font-size: 14px; font-family: monospace;" />
         <br><br>
-        <input type="color" id="selcolor" value="#ffe548" oninput="changeColor(this.value)">
+        <input type="color" id="selcolor" value="#bd7b0a" oninput="changeColor(this.value)">
 
         <a href="https://github.com/ryddle/nixie-radio" id="github" target="_blank" style="float: right;margin-top: -25px;">
             <div style="height: 32px;width: 32px;background: black;border-radius: 50%;">
@@ -160,7 +162,7 @@
         height: 220px;
         border-radius: 50%;
         background-color: #1d1100;
-        box-shadow: 1px 6px 10px 2px #0e0800;
+        box-shadow: 0px 0px var(--intensity) 0px var(--ligth-color);
         ">
             <div id="gauge_elm" style="
             position: absolute;
@@ -183,18 +185,33 @@
 
         <div id="gauge_glass" style="
         position: absolute;
-        left: 400px;
-        top: 260px;
-        width: 250px;
-        height: 190px;
-        border-radius: 50%;
+        left: 391px;
+        top: 251px;
+        width: 264px;
+        height: 200px;
+        border-radius: unset;
         z-index: 10;
         background: linear-gradient(45deg, rgba(224, 217, 146, 0.5186449579831933) 0%, rgba(224, 217, 146, 0) 35%, rgba(224, 217, 214, 0.4) 55%, rgba(224, 217, 146, 0.4430147058823529) 70%, rgba(224, 217, 146, 0) 100%);
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        box-shadow: 1px 1px 30px rgba(0, 0, 0, 0.1);
         backdrop-filter: blur(0.5px);
         -webkit-backdrop-filter: blur(0.5px);
         border: 6px solid rgb(255 255 255 / 10%);
         filter: sepia(60%);
+        clip-path: ellipse(47% 47%);
+        margin: 2px;
+        "></div>
+
+        <div id="gauge_inner_glow" style="
+        position: absolute;
+        left: 400px;
+        top: 260px;
+        width: 260px;
+        height: 200px;
+        border-radius: 50%;
+        z-index: 9;
+        box-shadow: inset 0px 0px var(--intensity) 0px var(--ligth-color);
+        backdrop-filter: blur(0.5px);
+        -webkit-backdrop-filter: blur(0.5px);
         "></div>
 
         <div id="slider" style="display: none;
@@ -282,11 +299,57 @@
         </div>
     </div>
 
-    <div id="sidebaropener2" onclick="openPlaylist()">
-        <i class="fa-regular fa-rectangle-list"></i>
+    <div id="sidebaropener2">
+        <button onclick="openPlaylist()" title="Open Playlist"><i class="fa-regular fa-rectangle-list"></i></button>
+        <br>
+        <button onclick="openLyrics()" title="Lyrics"><i class="fa-solid fa-microphone"></i></button>
     </div>
 
-    <div id="playlistsidebar" class="playlistsidebar">
+    <div id="playlistsidebar" class="playlistsidebar"></div>
+
+    <div id="lyricssidebar" class="lyricssidebar">
+        <div id="searchform">
+            <form id="searchform" style="color: var(--ligth-color);">
+                <style>
+                    #searchform label {
+                        font-family: "Roboto Slab", serif;
+                        font-size: 15px;
+                        color: var(--ligth-color);
+                        display: block;
+                        margin-bottom: 5px;
+                    }
+                    #searchform input[type="text"] {
+                        font-family: "Roboto Slab", serif;
+                        font-size: 15px;
+                        background-color: var(--wood-dark);
+                        color: var(--ligth-color);
+                        border: none;
+                        padding: 5px 10px;
+                        border-radius: 5px;
+                    }
+                    #searchform input[type="submit"] {
+                        font-family: "Roboto Slab", serif;
+                        font-size: 15px;
+                        background-color: var(--ligth-color);
+                        color: var(--wood-dark);
+                        border: none;
+                        padding: 5px 10px;
+                        border-radius: 5px;
+                        cursor: pointer;
+                    }
+                </style>
+                <label for="token">Token:</label>
+                <input type="text" id="token" name="token" required><br>
+                <label for="search">Title and artist:</label>
+                <input type="text" id="search" name="search" required><br>
+                <input type="button" value="Search" onclick="searchLyrics()">
+            </form>
+
+            <div id="results"></div>
+        </div>
+        <div id="lyrics">
+
+        </div>
     </div>
 
     <input type="file" id="file" accept="audio/**" style="display: none;" multiple>
@@ -375,13 +438,58 @@
         document.getElementById("playlistsidebar").classList.add("fadeOut");
     }
 
+    function openLyrics() {
+        document.getElementById("sidebaropener2").classList.remove("fadeIn");
+        document.getElementById("sidebaropener2").classList.add("fadeOut");
+
+        document.getElementById("lyricssidebar").classList.remove("fadeOut");
+        document.getElementById("lyricssidebar").classList.add("fadeIn");
+    }
+
+    function closeLyrics() {
+        document.getElementById("sidebaropener2").classList.remove("fadeOut");
+        document.getElementById("sidebaropener2").classList.add("fadeIn");
+
+        document.getElementById("lyricssidebar").classList.remove("fadeIn");
+        document.getElementById("lyricssidebar").classList.add("fadeOut");
+    }
+
+    function searchLyrics() {
+        var BASE_URL = 'https://api.genius.com/';
+        var AUTH_URL = 'https://api.genius.com/oauth/authorize';
+
+        
+        document.getElementById("results").innerHTML = "";
+        var token = document.getElementById("token").value;
+        var search = document.getElementById("search").value;
+        
+        fetch(BASE_URL + 'search?q=' + encodeURIComponent(search), {
+            method: 'GET',
+            mode: 'no-cors',
+            headers: {
+                'Authorization': 'Bearer ' + GENIUS_ACCESS_TOKEN
+            }
+        })
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+    }
+
     document.addEventListener("click", function (event) {
         if (!event.target.closest("#sidebaropener") && !event.target.closest("#sidebar")) {
             closeSidebar();
         }
 
-        if (!event.target.closest("#sidebaropener2") && !event.target.closest("#playlistsidebar")) {
+        if (!event.target.closest("#sidebaropener2") && !event.target.closest("#playlistsidebar")  && !event.target.closest("#lyricssidebar")) {
             closePlaylist();
+            closeLyrics();
         }
     });
 
@@ -578,6 +686,7 @@
 
         audiotimer = setInterval(function () {
             gauge.set(getEnergy());
+            setCssVar("--intensity", map(getEnergy(), 0, 140, 15, 45)+"px");
         }, 20);
     });
 
@@ -635,6 +744,8 @@
         if (this.files && this.files[0]) {
             document.getElementById("openMusic").innerHTML = "<i class='fa-solid fa-power-off'></i>";
             document.getElementById("openMusic").classList.add("active");
+
+            setCssVar("--intensity", "15px");
 
             for (let i = 0; i < this.files.length; i++) {
                 let file = this.files[i];
